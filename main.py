@@ -10,10 +10,23 @@ def get_user_choice():
     return input("Choose an option: ")
 
 def main():
-    show_menu()
-    choice = get_user_choice()
-    print(f"You chose: {choice}")
+    while True:
+        show_menu()
+        choice = get_user_choice()
 
+        if choice == "1":
+            display_coffees(coffees)
+
+        elif choice == "2":
+            print("Add coffee coming soon.")
+
+        elif choice == "3":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid choice.")
+            
 def display_coffees(coffees):
     for coffee in coffees:
         print(coffee)
