@@ -6,15 +6,17 @@ def show_menu():
     print("2. Add coffee")
     print("3. Exit")
 
-
 def get_user_choice():
     return input("Choose an option: ")
-
 
 def main():
     show_menu()
     choice = get_user_choice()
     print(f"You chose: {choice}")
+
+def display_coffees(coffees):
+    for coffee in coffees:
+        print(coffee)
 
 coffees = [
     {
