@@ -62,7 +62,9 @@ def main():
             pause()
 
         elif choice == "2":
-            print("Add coffee coming soon.")
+            new_coffee = get_new_coffee_details()
+            coffees.append(new_coffee)
+            print("Coffee added successfully.")
             pause()
 
         elif choice == "3":
@@ -88,6 +90,12 @@ def display_coffees(coffees):
 def pause():
     input("Press Enter to return to the menu...")
 
+def get_new_coffee_details():
+    name = input("Enter coffee name: ")
+    origin = input("Enter origin: ")
+    process = input("Enter process: ")
+    roast = input("Enter roast: ")
 
+    return {"name": name, "origin": origin, "process": process, "roast": roast}
 
 main()
