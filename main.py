@@ -47,7 +47,8 @@ def show_menu():
     print("==============================")
     print("1. View coffees")
     print("2. Add coffee")
-    print("3. Exit")
+    print("3. Edit coffee")
+    print("4. Exit")
 
 def get_user_choice():
     return input("Choose an option: ")
@@ -68,11 +69,21 @@ def main():
             pause()
 
         elif choice == "3":
+            search_name = input("Enter the name of the coffee to edit: ")
+            coffee = find_coffee_by_name(coffees, search_name)
+            if coffee:
+                edit_coffee_details(coffee)
+                print("Coffee updated successfully.")
+            else:
+                print("Coffee not found.")
+            pause()
+
+        elif choice == "4":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please choose 1, 2 or 3.")
+            print("Invalid choice. Please choose 1, 2, 3 or 4.")
 
 def display_coffees(coffees):
     if not coffees:
@@ -97,5 +108,27 @@ def get_new_coffee_details():
     roast = input("Enter roast: ")
 
     return {"name": name, "origin": origin, "process": process, "roast": roast}
+
+def find_coffee_by_name(coffees, name):
+    for coffee in coffees:
+        if coffee["name"].lower() == name.lower():
+            return coffee
+    return None
+
+def edit_coffee_details(coffee):
+    print("Leave a field blank to keep the current value.")
+    new_name = input(f"Enter new name (current: {coffee['name']}): ")
+    new_origin = input(f"Enter new origin (current: {coffee['origin']}): ")
+    new_process = input(f"Enter new process (current: {coffee['process']}): ")
+    new_roast = input(f"Enter new roast (current: {coffee['roast']}): ")
+
+    if new_name:
+        coffee["name"] = new_name
+    if new_origin:
+        coffee["origin"] = new_origin
+    if new_process:
+        coffee["process"] = new_process
+    if new_roast:
+        coffee["roast"] = new_roast
 
 main()
