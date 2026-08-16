@@ -48,7 +48,8 @@ def show_menu():
     print("1. View coffees")
     print("2. Add coffee")
     print("3. Edit coffee")
-    print("4. Exit")
+    print("4. Delete coffee")
+    print("5. Exit")
 
 def get_user_choice():
     return input("Choose an option: ")
@@ -79,11 +80,25 @@ def main():
             pause()
 
         elif choice == "4":
+            search_name = input("Enter the name of the coffee to delete: ")
+            coffee = find_coffee_by_name(coffees, search_name)
+            if coffee:
+                confirm = input(f"Are you sure you want to delete '{coffee['name']}'? (y/n): ").strip().lower()
+                if confirm == "y":
+                    coffees.remove(coffee)
+                    print("Coffee deleted successfully.")
+                else:
+                    print("Deletion cancelled.")
+            else:
+                print("Coffee not found.")
+            pause()
+
+        elif choice == "5":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please choose 1, 2, 3 or 4.")
+            print("Invalid choice. Please choose 1, 2, 3, 4 or 5.")
 
 def display_coffees(coffees):
     if not coffees:
