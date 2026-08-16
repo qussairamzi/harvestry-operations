@@ -1,45 +1,4 @@
-coffees = [
-    {
-        "name": "Mina",
-        "origin": "Brazil",
-        "process": "Natural",
-        "roast": "Medium",
-    },
-    {
-        "name": "Huila",
-        "origin": "Colombia",
-        "process": "Washed",
-        "roast": "Medium",
-    },
-
-    {
-        "name": "Inzuzi",
-        "origin": "Rwanda",
-        "process": "Natural",
-        "roast": "Medium",
-    },
-
-    {
-        "name": "Aquia",
-        "origin": "Costa Rica",
-        "process": "Natural",
-        "roast": "Medium",
-    },
-
-    {
-        "name": "Armonia",
-        "origin": "Guatemala",
-        "process": "Washed",
-        "roast": "Medium",
-    },
-    {
-        "name": "Gibuzale",
-        "origin": "Uganda",
-        "process": "Washed",
-        "roast": "Medium",
-    },
-    
-]
+import json
 
 def show_menu():
     print("==============================")
@@ -51,10 +10,22 @@ def show_menu():
     print("4. Delete coffee")
     print("5. Exit")
 
+def load_coffees():
+    try:
+        with open("coffees.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+def save_coffees(coffees):
+    with open("coffees.json", "w") as file:
+        json.dump(coffees, file, indent=4)
+
 def get_user_choice():
     return input("Choose an option: ")
 
 def main():
+    coffees = load_coffees()
     while True:
         show_menu()
         choice = get_user_choice()
@@ -66,6 +37,7 @@ def main():
         elif choice == "2":
             new_coffee = get_new_coffee_details()
             coffees.append(new_coffee)
+            save_coffees(coffees)
             print("Coffee added successfully.")
             pause()
 
@@ -74,6 +46,7 @@ def main():
             coffee = find_coffee_by_name(coffees, search_name)
             if coffee:
                 edit_coffee_details(coffee)
+                save_coffees(coffees)
                 print("Coffee updated successfully.")
             else:
                 print("Coffee not found.")
@@ -86,6 +59,7 @@ def main():
                 confirm = input(f"Are you sure you want to delete '{coffee['name']}'? (y/n): ").strip().lower()
                 if confirm == "y":
                     coffees.remove(coffee)
+                    save_coffees(coffees)
                     print("Coffee deleted successfully.")
                 else:
                     print("Deletion cancelled.")
