@@ -1,67 +1,111 @@
-# Harvestry Operations
+# Harvestry Operations ☕
 
-Harvestry Operations is a command-line Python application for managing Harvestry Coffee's coffee inventory.
+Harvestry Operations is a command-line Python application built to manage Harvestry Coffee's coffee inventory.
 
-## Current Features
+The project was created as a learning exercise while studying Python and software development, with the long-term goal of evolving into a complete coffee operations management system.
 
-- View coffees
-- Add coffees
-- Edit coffees
+---
+
+## Features
+
+- View coffee inventory
+- Add new coffees
+- Edit existing coffees
 - Delete coffees
-- Persistent JSON storage
+- Confirmation before deleting coffees
+- Automatic JSON persistence (data is saved between program runs)
 
-## Running the project
+---
+
+## Screenshots
+
+### Main Menu
+
+![Main Menu](screenshots/menu.png)
+
+### Coffee Inventory
+
+![Coffee Inventory](screenshots/coffees.png)
+
+---
+
+## Getting Started
+
+### Clone the repository
+
+```bash
+git clone https://github.com/qussairamzi/harvestry-operations.git
+cd harvestry-operations
+```
+
+### Run the application
+
+Requires Python 3.
 
 ```bash
 python3 main.py
 ```
 
+---
+
 ## Technologies
 
 - Python 3
-- Git
 - JSON
+- Git
+- GitHub
 
-## Project Status
+---
 
-🚧 In development
-
-## Backlog
-
-### MVP
-- [x] Project setup
-- [x] Interactive menu
-- [x] View coffees
-- [x] Add coffee
-- [x] Edit coffee
-- [x] Delete coffee
-- [x] Save inventory to JSON
-
-### Future
-- [ ] Search coffees
-- [ ] Filter by origin
-- [ ] Roast profiles
-- [ ] Import/export
-- [ ] Reporting
-
-## Learning Objectives
-
-This project was built while learning Python and Git.
-
-Key concepts practised:
-- Functions
-- Lists and dictionaries
-- File handling
-- JSON persistence
-- Exception handling
-- Git version control
-
-## Project Structure
+## Current Project Structure
 
 ```
 harvestry-operations/
-├── main.py         # Application logic
-├── coffees.json    # Inventory data
+│
+├── main.py
+├── coffees.json
 ├── README.md
-└── .gitignore
+├── LICENSE
+├── .gitignore
+└── screenshots/
+    ├── menu.png
+    └── coffees.png
 ```
+
+---
+
+## Roadmap
+
+### ✅ Completed
+
+- Interactive menu
+- View coffees
+- Add coffees
+- Edit coffees
+- Delete coffees
+- JSON persistence
+
+### 🚧 Planned
+
+- Search coffees
+- Filter coffees by origin
+- Sort coffees
+- Roast profile management
+- Import / Export
+- SQLite database
+- Reporting dashboard
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+Developed by **Qussai Ramzi**
+
+GitHub:
+https://github.com/qussairamzi
