@@ -8,7 +8,8 @@ def show_menu():
     print("2. Add coffee")
     print("3. Edit coffee")
     print("4. Delete coffee")
-    print("5. Exit")
+    print("5. Search coffees")
+    print("6. Exit")
 
 def load_coffees():
     try:
@@ -68,11 +69,22 @@ def main():
             pause()
 
         elif choice == "5":
+            search_term = input(
+                "Search by name, origin, process or roast: "
+            ).strip()
+            results = search_coffees(coffees, search_term)
+            if results:
+                display_coffees(results)
+            else:
+                print("No coffees found.")
+            pause()
+
+        elif choice == "6":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please choose 1, 2, 3, 4 or 5.")
+            print("Invalid choice. Please choose 1, 2, 3, 4, 5 or 6.")
 
 def display_coffees(coffees):
     if not coffees:
@@ -120,4 +132,16 @@ def edit_coffee_details(coffee):
     if new_roast:
         coffee["roast"] = new_roast
 
+def search_coffees(coffees, search_term):
+    search_term = search_term.lower()
+    results = []
+    for coffee in coffees:
+        if (search_term in coffee["name"].lower() or
+            search_term in coffee["origin"].lower() or
+            search_term in coffee["process"].lower() or
+            search_term in coffee["roast"].lower()):
+            results.append(coffee)
+    return results
+
 main()
+
