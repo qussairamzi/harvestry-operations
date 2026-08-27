@@ -23,7 +23,7 @@ def save_coffees(coffees):
         json.dump(coffees, file, indent=4)
 
 def get_user_choice():
-    return input("Choose an option: ")
+    return get_non_empty_input("Choose an option: ")
 
 def main():
     coffees = load_coffees()
@@ -43,7 +43,7 @@ def main():
             pause()
 
         elif choice == "3":
-            search_name = input("Enter the name of the coffee to edit: ")
+            search_name = get_non_empty_input("Enter the name of the coffee to edit: ")
             coffee = find_coffee_by_name(coffees, search_name)
             if coffee:
                 edit_coffee_details(coffee)
@@ -54,10 +54,10 @@ def main():
             pause()
 
         elif choice == "4":
-            search_name = input("Enter the name of the coffee to delete: ")
+            search_name = get_non_empty_input("Enter the name of the coffee to delete: ")
             coffee = find_coffee_by_name(coffees, search_name)
             if coffee:
-                confirm = input(f"Are you sure you want to delete '{coffee['name']}'? (y/n): ").strip().lower()
+                confirm = get_non_empty_input(f"Are you sure you want to delete '{coffee['name']}'? (y/n): ").strip().lower()
                 if confirm == "y":
                     coffees.remove(coffee)
                     save_coffees(coffees)
@@ -69,9 +69,9 @@ def main():
             pause()
 
         elif choice == "5":
-            search_term = input(
+            search_term = get_non_empty_input(
                 "Search by name, origin, process or roast: "
-            ).strip()
+            )
             results = search_coffees(coffees, search_term)
             if results:
                 display_coffees(results)
@@ -103,10 +103,10 @@ def pause():
     input("Press Enter to return to the menu...")
 
 def get_new_coffee_details():
-    name = input("Enter coffee name: ")
-    origin = input("Enter origin: ")
-    process = input("Enter process: ")
-    roast = input("Enter roast: ")
+    name = get_non_empty_input("Enter coffee name: ")
+    origin = get_non_empty_input("Enter origin: ")
+    process = get_non_empty_input("Enter process: ")
+    roast = get_non_empty_input("Enter roast: ")
 
     return {"name": name, "origin": origin, "process": process, "roast": roast}
 
@@ -118,10 +118,10 @@ def find_coffee_by_name(coffees, name):
 
 def edit_coffee_details(coffee):
     print("Leave a field blank to keep the current value.")
-    new_name = input(f"Enter new name (current: {coffee['name']}): ")
-    new_origin = input(f"Enter new origin (current: {coffee['origin']}): ")
-    new_process = input(f"Enter new process (current: {coffee['process']}): ")
-    new_roast = input(f"Enter new roast (current: {coffee['roast']}): ")
+    new_name = input(f"Enter new name (current: {coffee['name']}): ").strip()
+    new_origin = input(f"Enter new origin (current: {coffee['origin']}): ").strip()
+    new_process = input(f"Enter new process (current: {coffee['process']}): ").strip()
+    new_roast = input(f"Enter new roast (current: {coffee['roast']}): ").strip()
 
     if new_name:
         coffee["name"] = new_name
@@ -143,5 +143,11 @@ def search_coffees(coffees, search_term):
             results.append(coffee)
     return results
 
-main()
+def get_non_empty_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value:
+            return value
+        print("Input cannot be empty. Please try again.")
 
+main()
