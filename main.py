@@ -36,7 +36,7 @@ def main():
             pause()
 
         elif choice == "2":
-            new_coffee = get_new_coffee_details()
+            new_coffee = get_new_coffee_details(coffees)
             coffees.append(new_coffee)
             save_coffees(coffees)
             print("Coffee added successfully.")
@@ -102,8 +102,13 @@ def display_coffees(coffees):
 def pause():
     input("Press Enter to return to the menu...")
 
-def get_new_coffee_details():
-    name = get_non_empty_input("Enter coffee name: ")
+def get_new_coffee_details(coffees):
+    while True:
+        name = get_non_empty_input("Enter coffee name: ")
+        if not find_coffee_by_name(coffees, name):
+            break
+        else:       
+            print("A coffee with this name already exists. Please enter a different name.")
     origin = get_non_empty_input("Enter origin: ")
     process = get_non_empty_input("Enter process: ")
     roast = get_non_empty_input("Enter roast: ")
