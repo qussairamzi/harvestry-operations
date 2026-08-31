@@ -90,7 +90,8 @@ def display_coffees(coffees):
     if not coffees:
         print("No coffees available.")
         return
-    for number, coffee in enumerate(coffees, start=1):
+    sorted_coffees = sorted(coffees, key=lambda coffee: coffee["name"].lower())
+    for number, coffee in enumerate(sorted_coffees, start=1):
         print("\n----------------------------------------")
         print(f"Coffee {number}:")
         print(f"Name: {coffee['name']}")
