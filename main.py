@@ -32,59 +32,80 @@ def main():
         choice = get_user_choice()
 
         if choice == "1":
+        # View coffees  
             display_coffees(coffees)
             pause()
 
         elif choice == "2":
+        # Add coffee
+            add_coffee(coffees)
+
+        elif choice == "3":
+        # Edit coffee
+            edit_coffee(coffees)
+            
+        elif choice == "4":
+        # Delete coffee
+            delete_coffee(coffees)
+
+        elif choice == "5":
+        # Search coffees
+            search_coffees_menu(coffees)
+
+        elif choice == "6":
+        # Exit
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please choose 1, 2, 3, 4, 5 or 6.")
+
+def search_coffees_menu(coffees):
+    search_term = get_non_empty_input("Enter search term: ")
+    results = search_coffees(coffees, search_term)
+
+    if results:
+        print(f"\nFound {len(results)} result(s):")
+        display_coffees(results)
+    else:
+        print("No coffees found matching the search term.")
+
+    pause()
+
+def add_coffee(coffees):
             new_coffee = get_new_coffee_details(coffees)
             coffees.append(new_coffee)
             save_coffees(coffees)
             print("Coffee added successfully.")
             pause()
 
-        elif choice == "3":
-            search_name = get_non_empty_input("Enter the name of the coffee to edit: ")
-            coffee = find_coffee_by_name(coffees, search_name)
-            if coffee:
-                edit_coffee_details(coffee)
-                save_coffees(coffees)
-                print("Coffee updated successfully.")
-            else:
-                print("Coffee not found.")
-            pause()
+def delete_coffee(coffees):
+    search_name = get_non_empty_input("Enter the name of the coffee to delete: ")
+    coffee = find_coffee_by_name(coffees, search_name)
 
-        elif choice == "4":
-            search_name = get_non_empty_input("Enter the name of the coffee to delete: ")
-            coffee = find_coffee_by_name(coffees, search_name)
-            if coffee:
-                confirm = get_non_empty_input(f"Are you sure you want to delete '{coffee['name']}'? (y/n): ").strip().lower()
-                if confirm == "y":
-                    coffees.remove(coffee)
-                    save_coffees(coffees)
-                    print("Coffee deleted successfully.")
-                else:
-                    print("Deletion cancelled.")
-            else:
-                print("Coffee not found.")
-            pause()
+    if coffee:
+        confirm = input(f"Are you sure you want to delete {coffee['name']}? (y/n): ").strip().lower()
+        if confirm == "y":
+            coffees.remove(coffee)
+            save_coffees(coffees)
+            print("Coffee deleted successfully.")
+    else:
+        print("Deletion cancelled  .")
 
-        elif choice == "5":
-            search_term = get_non_empty_input(
-                "Search by name, origin, process or roast: "
-            )
-            results = search_coffees(coffees, search_term)
-            if results:
-                display_coffees(results)
-            else:
-                print("No coffees found.")
-            pause()
+    pause()
 
-        elif choice == "6":
-            print("Goodbye!")
-            break
+def edit_coffee(coffees):
+    search_name = get_non_empty_input("Enter the name of the coffee to edit: ")
+    coffee = find_coffee_by_name(coffees, search_name)
 
-        else:
-            print("Invalid choice. Please choose 1, 2, 3, 4, 5 or 6.")
+    if coffee:
+        edit_coffee_details(coffee)
+        save_coffees(coffees)
+        print("Coffee updated successfully.")
+    else:
+        print("Coffee not found.")
+
+    pause()     
 
 def display_coffees(coffees):
     if not coffees:
@@ -108,8 +129,9 @@ def get_new_coffee_details(coffees):
         name = get_non_empty_input("Enter coffee name: ")
         if not find_coffee_by_name(coffees, name):
             break
-        else:       
-            print("A coffee with this name already exists. Please enter a different name.")
+
+        print("A coffee with this name already exists. Please enter a different name.")
+
     origin = get_non_empty_input("Enter origin: ")
     process = get_non_empty_input("Enter process: ")
     roast = get_non_empty_input("Enter roast: ")
