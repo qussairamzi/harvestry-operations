@@ -18,7 +18,7 @@ def add_coffee(coffees):
             coffees.append(new_coffee)
             storage.save_coffees(coffees)
             print("Coffee added successfully.")
-            pause()
+            ui.pause()
 
 def delete_coffee(coffees):
     search_name = ui.get_non_empty_input("Enter the name of the coffee to delete: ")
@@ -38,11 +38,13 @@ def delete_coffee(coffees):
     ui.pause()
 
 def edit_coffee(coffees):
-    search_name = ui.get_non_empty_input("Enter the name of the coffee to edit: ")
+    search_name = ui.get_non_empty_input(
+        "Enter the name of the coffee to edit: "
+    )
     coffee = find_coffee_by_name(coffees, search_name)
 
     if coffee:
-        edit_coffee_details(coffee)
+        edit_coffee_details(coffees, coffee)
         storage.save_coffees(coffees)
         print("Coffee updated successfully.")
     else:
@@ -70,15 +72,32 @@ def find_coffee_by_name(coffees, name):
             return coffee
     return None
 
-def edit_coffee_details(coffee):
+def edit_coffee_details(coffees, coffee):
     print("Leave a field blank to keep the current value.")
-    new_name = input(f"Enter new name (current: {coffee['name']}): ").strip()
+    while True:
+        new_name = input(
+            f"Enter new name (current: {coffee['name']}): "
+        ).strip()
+
+        if not new_name:
+            break
+
+        existing_coffee = find_coffee_by_name(coffees, new_name)
+
+        if existing_coffee and existing_coffee is not coffee:
+            print(
+                "A coffee with this name already exists. "
+                "Please enter a different name."
+            )
+            continue
+
+        coffee["name"] = new_name
+        break
+
     new_origin = input(f"Enter new origin (current: {coffee['origin']}): ").strip()
     new_process = input(f"Enter new process (current: {coffee['process']}): ").strip()
     new_roast = input(f"Enter new roast (current: {coffee['roast']}): ").strip()
 
-    if new_name:
-        coffee["name"] = new_name
     if new_origin:
         coffee["origin"] = new_origin
     if new_process:
