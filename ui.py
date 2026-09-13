@@ -35,3 +35,12 @@ def get_non_empty_input(prompt):
         if value:
             return value
         print("Input cannot be empty. Please try again.")
+
+def get_yes_no_input(prompt):
+    while True:
+        value = input(prompt).strip().lower()
+        if value in ["y", "yes"]:
+            return "y"
+        elif value in ["n", "no"]:
+            return "n"
+        print("Invalid input. Please enter 'y', 'yes', 'n' or 'no'.")
