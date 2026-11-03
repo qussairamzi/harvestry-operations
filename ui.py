@@ -1,13 +1,15 @@
+import constants
+
 def show_menu():
     print("==============================")
     print("    HARVESTRY OPERATIONS")
     print("==============================")
-    print("1. View coffees")
-    print("2. Add coffee")
-    print("3. Edit coffee")
-    print("4. Delete coffee")
-    print("5. Search coffees")
-    print("6. Exit")
+    print(f"{constants.VIEW_COFFEES}. View coffees")
+    print(f"{constants.ADD_COFFEE}. Add coffee")
+    print(f"{constants.EDIT_COFFEE}. Edit coffee")
+    print(f"{constants.DELETE_COFFEE}. Delete coffee")
+    print(f"{constants.SEARCH_COFFEES}. Search coffees")
+    print(f"{constants.EXIT}. Exit")
 
 def get_user_choice():
     return get_non_empty_input("Choose an option: ")
