@@ -13,3 +13,16 @@ def load_coffees():
 def save_coffees(coffees):
     with open("coffees.json", "w") as file:
         json.dump(coffees, file, indent=4)
+
+from models import Coffee
+
+def load_coffee_objects():
+    coffee_data = load_coffees()
+
+    coffee_objects = []
+
+    for data in coffee_data:
+        coffee = Coffee.from_dict(data)
+        coffee_objects.append(coffee)
+
+    return coffee_objects

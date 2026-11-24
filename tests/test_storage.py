@@ -7,6 +7,8 @@ import storage
 
 import json
 
+from models import Coffee
+
 def test_load_coffees_missing_file(tmp_path: Any, monkeypatch: MonkeyPatch):
     # Arrange
     monkeypatch.chdir(tmp_path)
@@ -73,3 +75,21 @@ def test_save_coffees(tmp_path, monkeypatch):
 
     saved_coffees = json.loads(test_file.read_text())
     assert saved_coffees == test_coffees
+
+def test_load_coffee_objects(monkeypatch):
+    coffee_data = [
+        {
+            "name": "Mina",
+            "origin": "Brazil",
+            "process": "Natural",
+            "roast": "Medium"
+        }
+    ]
+
+    monkeypatch.setattr(storage, "load_coffees", lambda: coffee_data)
+
+    coffees = storage.load_coffee_objects()
+
+    assert len(coffees) == 1
+    assert isinstance(coffees[0], Coffee)
+    assert coffees[0].name == "Mina"

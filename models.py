@@ -26,15 +26,3 @@ class Coffee:
             data["process"],
             data["roast"]
     )
-
-coffee_data = {
-    "name": "Aquia",
-    "origin": "Costa Rica",
-    "process": "Washed",
-    "roast": "Light"
-}
-
-aquia = Coffee.from_dict(coffee_data)
-
-print(aquia.describe())
-print(type(aquia))
